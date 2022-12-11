@@ -2,17 +2,23 @@ name: user-statistician
 
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '42 5 * * *'
+  push:
+    branches: [ master ]
+    paths: [ 'userstats.yml' ]
   workflow_dispatch:
 
 jobs:
   stats:
-    runs-on: windows
+    runs-on: ubuntu-latest
       
     steps:
     - uses: actions/checkout@v2
 
-    - name: Generate the user stats image
+    - name: Generate the user stats image for GitHub profile
       uses: FlutterProjects123/user-statistician@v1
+      with:
+        colors: dark
+        featured-repository: Chips-n-Salsa
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
